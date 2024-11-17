@@ -1,0 +1,105 @@
+@font-face {
+  font-family: "Funnel";
+  src: url("./FunnelDisplay-SemiBold.ttf");
+}
+@font-face {
+  font-family: "Noto";
+  src: url("./NotoSans_Condensed-Regular.ttf");
+}
+:root {
+  --light: #f4f4f4;
+  --light-darker: #ccc;
+  --dark-lighter: #333;
+  --dark-lightest: #565656;
+}
+/** Titles */
+.text-funnel {
+  font-family: "Funnel", serif;
+  letter-spacing: 0.1rem;
+}
+.text-center {
+  text-align: center;
+}
+.w-100 {
+  width: 100%;
+}
+.w-content {
+  width: max-content;
+}
+.m-auto {
+  margin: auto;
+}
+.mb-0 {
+  margin-bottom: 0;
+}
+.mt-0 {
+  margin-top: 0;
+}
+.p-1 {
+  padding: 0.5rem;
+}
+.bg-light {
+  background-color: var(--light);
+}
+.bg-dark-lightest {
+  background-color: var(--dark-lightest);
+}
+.text-light {
+  color: var(--light);
+}
+.text-dark-lighter {
+  color: var(--dark-lighter);
+}
+.d-flex {
+  display: flex;
+}
+.column {
+  flex-direction: column;
+}
+.gap-1 {
+  gap: 0.5rem;
+}
+body {
+  font-family: "Noto", sans-serif;
+  background-color: var(--dark-lighter);
+  color: var(--light);
+  letter-spacing: 0.025rem;
+  margin: 0;
+  height: 99vh;
+}
+h1 {
+  font-size: 3rem;
+  margin: 8px 0 16px;
+}
+#grid-container {
+  padding: 0 8px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+#selection {
+  position: fixed;
+  bottom: 48px;
+  left: 48px;
+  background-color: var(--light-darker);
+  color: var(--dark-lighter);
+  max-height: 80vh;
+  width: 640px;
+}
+#selection > button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+#selection > :first-child > :first-child {
+  padding: 16px 32px;
+  box-sizing: border-box;
+  min-height: 30vh;
+  max-height: 80vh;
+  width: 256px;
+}
+#selection label {
+  font-size: 0.8rem;
+}
+#selection h2 {
+  margin: 0 0 4px;
+}
