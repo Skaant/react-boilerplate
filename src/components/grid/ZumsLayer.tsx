@@ -1,64 +1,62 @@
 import React, { useCallback, useContext, useMemo } from "react";
-import { GameContext } from "../../GameContext";
+import { GameContext } from "../../contexts/GameContext";
 import { GridElement } from "../../types/grid/GridElement";
 import { Zum } from "../../types/zums/Zum";
-import { ConfigContext } from "../../ConfigContext";
 import ZumSvg, { ZUM_SVG_HEIGHT, ZUM_SVG_WIDTH } from "../svg/ZumSvg";
-import { UIContext } from "../../UIContext";
+import { UIContext } from "../../contexts/ui/UIContext";
+import { setSelection } from "../../contexts/ui/helpers/setSelection";
+import { CONFIG } from "../../data/config.data";
 
 export default function ZumsLayer() {
-  const [config] = useContext(ConfigContext);
   const [game] = useContext(GameContext);
   const [UI, setUI] = useContext(UIContext);
+  const cellSize = useMemo(
+    () => UI && (CONFIG.CELL_SIZE * 3) / UI.zoom,
+    [UI?.zoom]
+  );
   const zums = useMemo(
     () =>
-      config &&
-      game &&
-      Object.values(game.cells)
-        .map(
-          ({ x, y, zums }) =>
-            [
-              ...zums.map((zum, index) => ({
-                x:
-                  x * config.cellSize +
-                  config.cellSize * (0.95 - ZUM_SVG_WIDTH * (index + 1)),
-                y:
-                  y * config.cellSize +
-                  config.cellSize * (0.95 - ZUM_SVG_HEIGHT),
-                ...game.zums[zum],
-                ...(UI?.selection?.type === "zum" && UI.selection.id === zum
-                  ? { selected: true }
-                  : {}),
-              })),
-            ] as (GridElement & Zum & { selected?: true })[]
-        )
-        .flat(),
-    [config?.cellSize, UI?.selection, game?.cells, game?.zums]
+      cellSize === undefined
+        ? undefined
+        : game &&
+          Object.values(game.cells)
+            .map(
+              ({ x, y, zums }) =>
+                [
+                  ...zums
+                    .filter((zumId) => game.zums[zumId].state !== "dry")
+                    .map((zumId, index) => ({
+                      x:
+                        x * cellSize +
+                        cellSize * (0.95 - ZUM_SVG_WIDTH * (index + 1)),
+                      y: y * cellSize + cellSize * (0.95 - ZUM_SVG_HEIGHT),
+                      ...game.zums[zumId],
+                      ...(UI?.selection?.type === "zum" &&
+                      UI.selection.id === zumId
+                        ? { selected: true }
+                        : {}),
+                    })),
+                ] as (GridElement & Zum & { selected?: true })[]
+            )
+            .flat(),
+    [cellSize, UI?.selection, game?.cells, game?.zums]
   );
   const onClick = useCallback(
     (id: Zum["id"]) => {
       (UI?.selection?.type !== "zum" || id !== UI.selection.id) &&
-        setUI({
-          ...UI,
-          selection: {
-            type: "zum",
-            id,
-          },
+        setSelection([UI, setUI], {
+          type: "zum",
+          id,
         });
     },
     [UI]
   );
   return (
     <>
-      {JSON.stringify(zums)}
-      {zums?.map((zum) => (
-        <ZumSvg
-          key={zum.id}
-          cellSize={config!.cellSize}
-          {...zum}
-          onClick={onClick}
-        />
-      ))}
+      {cellSize &&
+        zums?.map((zum) => (
+          <ZumSvg key={zum.id} cellSize={cellSize} {...zum} onClick={onClick} />
+        ))}
     </>
   );
 }

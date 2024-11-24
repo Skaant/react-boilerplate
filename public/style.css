@@ -11,6 +11,9 @@
   --light-darker: #ccc;
   --dark-lighter: #333;
   --dark-lightest: #565656;
+  --space: #271b3d;
+  --seed: #a40;
+  --zum: #fd6d2a;
 }
 /** Titles */
 .text-funnel {
@@ -19,6 +22,12 @@
 }
 .text-center {
   text-align: center;
+}
+.text-light-darker {
+  color: var(--light-darker);
+}
+.text-dark {
+  color: var(--dark-lighter);
 }
 .w-100 {
   width: 100%;
@@ -35,14 +44,50 @@
 .mt-0 {
   margin-top: 0;
 }
+.mt-2 {
+  margin-top: 1rem;
+}
+.mb-2 {
+  margin-bottom: 1rem;
+}
 .p-1 {
   padding: 0.5rem;
+}
+.p-2 {
+  padding: 1rem;
+}
+.p-4 {
+  padding: 1rem;
+}
+.pl-2 {
+  padding-left: 1rem;
+}
+.pt-2 {
+  padding-top: 1rem;
+}
+.pb-2 {
+  padding-bottom: 1rem;
 }
 .bg-light {
   background-color: var(--light);
 }
+.bg-light-darker {
+  background-color: var(--light-darker);
+}
+.bg-dark-lighter {
+  background-color: var(--dark-lighter);
+}
 .bg-dark-lightest {
   background-color: var(--dark-lightest);
+}
+.bg-space {
+  background-color: var(--space);
+}
+.bg-seed {
+  background-color: var(--seed);
+}
+.bg-zum {
+  background-color: var(--zum);
 }
 .text-light {
   color: var(--light);
@@ -50,14 +95,44 @@
 .text-dark-lighter {
   color: var(--dark-lighter);
 }
+.overflow-auto {
+  overflow: auto;
+}
 .d-flex {
   display: flex;
 }
 .column {
   flex-direction: column;
 }
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.align-center {
+  align-items: center;
+}
 .gap-1 {
   gap: 0.5rem;
+}
+.badge-s {
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  border: none;
+}
+.badge-m {
+  padding: 0.4rem 0.8rem;
+  border-radius: 0.8rem;
+  font-size: 0.9rem;
+  border: none;
+}
+.badge-l {
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  border: none;
 }
 body {
   font-family: "Noto", sans-serif;
@@ -67,8 +142,15 @@ body {
   margin: 0;
   height: 99vh;
 }
+button {
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.66;
+  cursor: initial;
+}
 h1 {
-  font-size: 3rem;
+  font-size: 1.2rem;
   margin: 8px 0 16px;
 }
 #grid-container {
@@ -76,26 +158,18 @@ h1 {
   box-sizing: border-box;
   overflow: auto;
 }
+#grid {
+  cursor: pointer;
+}
 #selection {
-  position: fixed;
-  bottom: 48px;
-  left: 48px;
-  background-color: var(--light-darker);
-  color: var(--dark-lighter);
-  max-height: 80vh;
-  width: 640px;
-}
-#selection > button {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-}
-#selection > :first-child > :first-child {
-  padding: 16px 32px;
+  width: 450px;
+  position: relative;
+  height: 720px;
   box-sizing: border-box;
-  min-height: 30vh;
-  max-height: 80vh;
-  width: 256px;
+}
+#selection > :first-child {
+  height: calc(100% - 62px);
+  overflow-y: auto;
 }
 #selection label {
   font-size: 0.8rem;

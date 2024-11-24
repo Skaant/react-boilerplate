@@ -1,7 +1,8 @@
-import { GameContextData } from "../GameContext";
+import { GameContextData } from "../contexts/GameContext";
 import { State } from "../types/_helpers/State";
-import { UIContextData } from "../UIContext";
+import { UIContextData } from "../contexts/ui/UIContext";
 import { moveZum } from "../use-cases/moveZum";
+import { setPreviousSelection } from "../contexts/ui/helpers/setPreviousSelection";
 
 let keyupListener: undefined | ((ev: KeyboardEvent) => void) = undefined;
 
@@ -15,10 +16,7 @@ export function bindKeyboard({
   keyupListener && document.removeEventListener("keydown", keyupListener);
   keyupListener = (ev: KeyboardEvent) => {
     if (ev.key === "Escape") {
-      const [, setUI] = UIState;
-      setUI({
-        selection: undefined,
-      });
+      setPreviousSelection(UIState);
     } else if (UIState[0]?.selection?.type === "zum") {
       const zumId = UIState[0].selection.id;
       if (ev.key === "z" || ev.key === "ArrowUp") {

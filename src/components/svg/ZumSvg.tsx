@@ -1,21 +1,20 @@
 import React from "react";
 import { GridElement } from "../../types/grid/GridElement";
 import { Zum } from "../../types/zums/Zum";
-import { ConfigContextData } from "../../ConfigContext";
 
 export const ZUM_SVG_WIDTH = 0.21;
 export const ZUM_SVG_HEIGHT = 0.43;
 
 export default function ZumSvg({
   id,
-  cellSize,
   x,
   y,
+  cellSize,
   selected,
   onClick,
-}: Pick<Exclude<ConfigContextData, undefined>, "cellSize"> &
-  GridElement &
+}: GridElement &
   Zum & {
+    cellSize: number;
     selected?: true;
     onClick?: (id: Zum["id"]) => void;
   }) {

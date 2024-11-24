@@ -1,5 +1,4 @@
 import React from "react";
-import { ConfigContextData } from "../../ConfigContext";
 import { GridElement } from "../../types/grid/GridElement";
 import { Building } from "../../types/buildings/Building";
 
@@ -12,9 +11,9 @@ export default function DomSvg({
   x,
   y,
   onClick,
-}: Pick<Exclude<ConfigContextData, undefined>, "cellSize"> &
-  GridElement &
+}: GridElement &
   Building & {
+    cellSize: number;
     onClick?: (id: Building["id"]) => void;
   }) {
   return (

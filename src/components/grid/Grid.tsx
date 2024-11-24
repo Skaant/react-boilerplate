@@ -1,18 +1,23 @@
 import React, { useContext, useMemo, useCallback } from "react";
-import { GameContext } from "../../GameContext";
-import { ConfigContext } from "../../ConfigContext";
+import { GameContext } from "../../contexts/GameContext";
+import { ConfigContext } from "../../contexts/ConfigContext";
 import ZumsLayer from "./ZumsLayer";
 import BuildingsLayer from "./BuildingsLayer";
-import { UIContext } from "../../UIContext";
-import { Cell } from "../../types/grid/Cell";
+import { UIContext } from "../../contexts/ui/UIContext";
+import { Cell as CellType } from "../../types/grid/Cell";
+import Cell from "./cells/Cell";
+import { setSelection } from "../../contexts/ui/helpers/setSelection";
+import { CONFIG } from "../../data/config.data";
 
 export default function Grid() {
-  const [config] = useContext(ConfigContext);
   const [UI, setUI] = useContext(UIContext);
   const [game] = useContext(GameContext);
+  const cellSize = useMemo(
+    () => UI && (CONFIG.CELL_SIZE * 3) / UI.zoom,
+    [UI?.zoom]
+  );
   const dimensions = useMemo(
     () =>
-      config &&
       game &&
       Object.values(game.cells).reduce(
         (acc, { x, y }) => ({
@@ -21,50 +26,37 @@ export default function Grid() {
         }),
         { width: 0, height: 0 }
       ),
-    [config?.cellSize, game?.cells]
+    [game?.cells]
   );
   const onClick = useCallback(
-    (id: Cell["id"]) => {
+    (id: CellType["id"]) => {
       (UI?.selection?.type !== "cell" || id !== UI.selection.id) &&
-        setUI({
-          ...UI,
-          selection: {
-            type: "cell",
-            id,
-          },
+        setSelection([UI, setUI], {
+          type: "cell",
+          id,
         });
     },
     [UI]
   );
   const cells = useMemo(
     () =>
-      config &&
       game &&
-      Object.values(game.cells).map(({ id, x, y, waild }) => (
-        <rect
-          key={id}
-          x={x * config.cellSize}
-          y={y * config.cellSize}
-          width={config.cellSize}
-          height={config.cellSize}
-          fill={waild === 2 ? "#0a0" : "#050"}
-          onClick={() => onClick(id)}
-        />
+      Object.values(game.cells).map((cell) => (
+        <Cell key={cell.id} cell={cell} onClick={onClick} />
       )),
-    [config?.cellSize, game?.cells, onClick]
+    [game?.cells, onClick]
   );
-  return dimensions ? (
-    <div id="grid-container" className="w-100">
-      <div className="w-content m-auto">
-        <svg
-          height={dimensions.height * config!.cellSize}
-          width={dimensions.width * config!.cellSize}
-        >
-          {cells}
-          <BuildingsLayer />
-          <ZumsLayer />
-        </svg>
-      </div>
+  return cellSize && dimensions ? (
+    <div id="grid-container">
+      <svg
+        id="grid"
+        height={dimensions.height * cellSize}
+        width={dimensions.width * cellSize}
+      >
+        {cells}
+        <BuildingsLayer />
+        <ZumsLayer />
+      </svg>
     </div>
   ) : (
     <>Loading ...</>

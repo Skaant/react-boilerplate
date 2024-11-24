@@ -7,7 +7,11 @@ export type Cell = Id & {
   x: number;
   /** 0, 1, 2 ... */
   y: number;
-  waild: number;
   zums: Zum["id"][];
   buildings: Building["id"][];
-};
+} & (
+    | {
+        type: "space";
+      }
+    | { type: "ground"; waild: number }
+  );

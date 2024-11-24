@@ -3,6 +3,7 @@ import { Building } from "../../types/buildings/Building";
 import DomSvg from "../svg/DomSvg";
 import KolosSeedSvg from "../svg/KolosSeedSvg";
 import { GridElement } from "../../types/grid/GridElement";
+import KolosSeedTransitSvg from "../svg/KolosSeedTransitSvg";
 
 export default function BuildingSwitch(
   props: {
@@ -14,7 +15,13 @@ export default function BuildingSwitch(
 ) {
   return props.type === "dom" ? (
     <DomSvg {...props} />
-  ) : props.type === "kolos-seed" ? (
-    <KolosSeedSvg {...props} />
-  ) : null;
+  ) : props.type === "seed-vessel" ? (
+    props.step === 1 ? (
+      <KolosSeedTransitSvg {...props} />
+    ) : (
+      <KolosSeedSvg {...props} />
+    )
+  ) : (
+    <></>
+  );
 }

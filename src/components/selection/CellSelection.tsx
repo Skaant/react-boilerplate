@@ -3,12 +3,13 @@ import { Cell } from "../../types/grid/Cell";
 
 export default function CellSelection({ cell }: { cell: Cell }) {
   return (
-    <div className="d-flex">
-      <div className="bg-dark-lightest text-light">
-        <label className="text-dark-lighter">CASE</label>
-        <h2 className="text-funnel">{`x : ${cell.x}, y : ${cell.y}`}</h2>
-        <p>{`Niveau de waïld : ${cell.waild}`}</p>
-      </div>
+    <div>
+      <label className="text-light-darker">{`Case (x,y) : ${cell.id}`}</label>
+      <h2 className="text-funnel">
+        {cell.type === "ground" ? "Sol" : "Espace"}
+      </h2>
+      {cell.type.startsWith("space") && <p>Il fait un peu froid ici.</p>}
+      {cell.type === "ground" && <p>{`Niveau de waïld : ${cell.waild}`}</p>}
     </div>
   );
 }

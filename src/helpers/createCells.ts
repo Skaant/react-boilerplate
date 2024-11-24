@@ -1,7 +1,5 @@
-import { Building } from "../types/buildings/Building";
 import { Cell } from "../types/grid/Cell";
 import { Index } from "../types/Index";
-import { Zum } from "../types/zums/Zum";
 
 export function createCells(height: number, width: number): Index<Cell> {
   if (height < 1 || width < 1) {
@@ -15,7 +13,7 @@ export function createCells(height: number, width: number): Index<Cell> {
         id,
         x,
         y,
-        waild: (x + y) % 2 === 0 ? 2 : 3,
+        type: "space",
         zums: [],
         buildings: [],
       };

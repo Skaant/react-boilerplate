@@ -1,16 +1,21 @@
+import { BuildingDataDevelopment } from "../../data/buildings/_types/BuildingData";
 import { Cell } from "../grid/Cell";
 import { Id } from "../Id";
-import { Zum } from "../zums/Zum";
+import { Dom } from "./list/Dom";
+import { SeedVessel } from "./list/SeedVessel";
+import { Module } from "./Module";
 
-export type Building = Id & {
+export type Building = SeedVessel | Dom;
+
+export type GenericBuilding = Id & {
   cell: Cell["id"];
-} & (
-    | {
-        type: "kolos-seed";
-        residents: Zum["id"][];
-      }
-    | {
-        type: "dom";
-        residents: Zum["id"][];
-      }
-  );
+  state?: "dry";
+  step?: number;
+  developments?: { [type: string]: BuildingDevelopment };
+  modules?: Module[];
+};
+
+export type BuildingDevelopment = {
+  type: BuildingDataDevelopment["type"];
+  count: number;
+};

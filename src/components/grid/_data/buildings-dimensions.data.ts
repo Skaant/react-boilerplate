@@ -4,11 +4,19 @@ import {
   KOLOS_SEED_SVG_HEIGHT,
   KOLOS_SEED_SVG_WIDTH,
 } from "../../svg/KolosSeedSvg";
+import {
+  KOLOS_SEED_TRANSIT_SVG_HEIGHT,
+  KOLOS_SEED_TRANSIT_SVG_WIDTH,
+} from "../../svg/KolosSeedTransitSvg";
 
 export const BUILDINGS_DIMENSIONS: {
-  [key in Building["type"]]: { width: number; height: number };
+  [key: string]: { width: number; height: number };
 } = {
-  "kolos-seed": {
+  "seed-vessel-1": {
+    width: KOLOS_SEED_TRANSIT_SVG_WIDTH,
+    height: KOLOS_SEED_TRANSIT_SVG_HEIGHT,
+  },
+  "seed-vessel-2": {
     width: KOLOS_SEED_SVG_WIDTH,
     height: KOLOS_SEED_SVG_HEIGHT,
   },
