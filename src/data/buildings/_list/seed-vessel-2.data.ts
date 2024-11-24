@@ -3,7 +3,7 @@ import { SEED_VESSEL_ROOTS } from "./seed-vessel/developments/seed-vessel-roots.
 
 export const SEED_VESSEL_2: BuildingData<"seed-vessel-2"> = {
   type: "seed-vessel-2",
-  name: "Vaisseau-graine atteri",
+  name: "Vaisseau-graine aterri",
   description:
     "Atteri, on ne sait encore où. Le vaisseau-graine et les Zums commencent à se réveiller doucement. Ils ont trés soif.",
   props: [{ type: "zums-prod", value: 0.1 }],

@@ -33,11 +33,11 @@ export default function BuildingSelection({
       building.step
         ? BUILDINGS[`${building.type}-${building.step}`]
         : BUILDINGS[building.type],
-    [building.type]
+    [building.step, building.type]
   );
   const buildingAndModulesDataProps = useMemo(
     () => mergeBuildingAndModulesDataProps(building),
-    [building.modules]
+    [building]
   );
   const buildingAndModulesProps = useMemo(
     () => mergeBuildingAndModulesProps(building),

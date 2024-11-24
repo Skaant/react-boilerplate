@@ -55,6 +55,7 @@ export default function BuildingSelectionModule({
           </span>
         )}
       </div>
+      <p>{data.description}</p>
       <BuildingSelectionProps props={data.props} object={module} />
       {residents && (
         <>

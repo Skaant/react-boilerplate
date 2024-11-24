@@ -8,6 +8,7 @@ import CellSelection from "./CellSelection";
 import ZumSelection from "./ZumSelection";
 import BuildingSelection from "./buildings/BuildingSelection";
 import { getSelectionBgAndColor } from "./helpers/getSelectionBgAndColor";
+import SelectionTutorial from "./SelectionTutorial";
 
 export default function Selection() {
   const [UI, setUI] = useContext(UIContext);
@@ -41,7 +42,7 @@ export default function Selection() {
   }, [UI, game]);
   const dismiss = useCallback(() => {
     setUI({
-      ...UI,
+      ...UI!,
       selection: undefined,
       selectionHistory: [],
     });
@@ -59,7 +60,7 @@ export default function Selection() {
       ) : (
         <div>
           <h2 className="text-funnel">Trikro</h2>
-          <p>Cliquez sur le vaisseau-graine.</p>
+          <SelectionTutorial />
         </div>
       )}
       {selection && (

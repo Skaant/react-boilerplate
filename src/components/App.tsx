@@ -6,6 +6,7 @@ import { UIContext, UIContextData } from "../contexts/ui/UIContext";
 import Selection from "./selection/Selection";
 import { createGame } from "../helpers/createGame";
 import { bindKeyboard } from "../helpers/bindKeyboard";
+import Turn from "./turn/Turn";
 
 export default function App() {
   const configState = useState<ConfigContextData>({});
@@ -28,15 +29,9 @@ export default function App() {
             <Grid />
             <Selection />
           </div>
+          {gameState[0]?.tutorial} ''
           <div className="d-flex justify-center mt-2">
-            <div className="d-flex gap-1 align-center">
-              <span className="text-funnel">
-                Tour {gameState[0]?.turn || 0}
-              </span>
-              <button className="badge-l bg-light text-dark lighter">
-                Tour suivant
-              </button>
-            </div>
+            <Turn />
           </div>
         </GameContext.Provider>
       </UIContext.Provider>

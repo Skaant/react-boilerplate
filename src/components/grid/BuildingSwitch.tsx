@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Building } from "../../types/buildings/Building";
 import DomSvg from "../svg/DomSvg";
 import KolosSeedSvg from "../svg/KolosSeedSvg";
 import { GridElement } from "../../types/grid/GridElement";
 import KolosSeedTransitSvg from "../svg/KolosSeedTransitSvg";
+import { GameContext } from "../../contexts/GameContext";
 
 export default function BuildingSwitch(
   props: {
@@ -13,11 +14,18 @@ export default function BuildingSwitch(
       onClick: (id: Building["id"]) => void;
     }
 ) {
+  const [game, setGame] = useContext(GameContext);
   return props.type === "dom" ? (
     <DomSvg {...props} />
   ) : props.type === "seed-vessel" ? (
     props.step === 1 ? (
-      <KolosSeedTransitSvg {...props} />
+      <KolosSeedTransitSvg
+        {...props}
+        onClick={(id: Building["id"]) => {
+          setGame({ ...game!, tutorial: 1 });
+          props.onClick(id);
+        }}
+      />
     ) : (
       <KolosSeedSvg {...props} />
     )
