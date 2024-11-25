@@ -4,6 +4,6 @@ import { HasResidents } from "../../../../types/buildings/attributes/HasResident
 import { HasWa } from "../../../../types/buildings/attributes/HasWa";
 import { OptionalNested } from "../../../../types/Optional";
 
-export type MergedBuildingOrModule = OptionalNested<
+export type MergedBuildingProps = OptionalNested<
   HasResidents & HasWa & HasJing & HasData
 >;

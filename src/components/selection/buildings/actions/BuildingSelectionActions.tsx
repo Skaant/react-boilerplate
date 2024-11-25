@@ -7,7 +7,7 @@ export default function BuildingSelectionActions({
 }: {
   building: Building;
 }) {
-  if (building.type === "seed-vessel" && building.step === 1)
+  if (building.type === "seed-vessel")
     return <SeedVesselSelectionActions building={building} />;
   return undefined;
 }

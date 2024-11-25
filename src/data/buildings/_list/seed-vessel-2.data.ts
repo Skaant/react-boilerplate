@@ -7,7 +7,7 @@ export const SEED_VESSEL_2: BuildingData<"seed-vessel-2"> = {
   description:
     "Atteri, on ne sait encore où. Le vaisseau-graine et les Zums commencent à se réveiller doucement. Ils ont trés soif.",
   props: [{ type: "zums-prod", value: 0.1 }],
-  developments: [SEED_VESSEL_ROOTS],
+  developments: { [SEED_VESSEL_ROOTS.type]: SEED_VESSEL_ROOTS },
   evolutions: [
     "Relais Hol-Zong",
     "Manufacture",

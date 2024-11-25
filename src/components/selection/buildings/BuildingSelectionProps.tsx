@@ -2,18 +2,19 @@ import React, { useMemo } from "react";
 import { BuildingProps } from "../../../data/buildings/_types/props/BuildingProps";
 import { Building } from "../../../types/buildings/Building";
 import { Module } from "../../../types/buildings/Module";
-import { MergedBuildingOrModule } from "./_types/MergedBuildingOrModule";
+import { MergedBuildingProps } from "./_types/MergedBuildingProps";
 
 const PROPS_PARSER: {
   [key in BuildingProps["type"]]: (
     prop: BuildingProps,
-    object?: Building | Module | MergedBuildingOrModule
+    object?: Building | Module | MergedBuildingProps
   ) => string | JSX.Element;
 } = {
   "zums-slots": (prop, object) =>
     `+${prop.value} résidences Zums (${object?.["residents"]?.length || 0}/${
       prop.value
     })`,
+  "zums-prod": (prop) => `+${prop.value} Zums/tour`,
   "wa-max": (prop) => `+${prop.value} Wa max`,
   "wa-prod": (prop) => `${prop.value < 0 ? "" : "+"}${prop.value} Wa/tour`,
   "jing-max": (prop) => `+${prop.value} Jing max`,
@@ -26,7 +27,7 @@ export default function BuildingSelectionProps({
   object,
 }: {
   props: BuildingProps[];
-  object?: Building | Module | MergedBuildingOrModule;
+  object?: Building | Module | MergedBuildingProps;
 }) {
   return (
     <>

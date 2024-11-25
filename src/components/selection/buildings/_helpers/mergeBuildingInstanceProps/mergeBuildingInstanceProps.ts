@@ -1,13 +1,13 @@
-import { Building } from "../../../../types/buildings/Building";
-import { MergedBuildingOrModule } from "../_types/MergedBuildingOrModule";
+import { Building } from "../../../../../types/buildings/Building";
+import { MergedBuildingProps } from "../../_types/MergedBuildingProps";
 
-export function mergeBuildingAndModulesProps({
+export function mergeBuildingInstanceProps({
   modules,
   ...building
 }: Pick<Building, "state" | "modules"> &
-  MergedBuildingOrModule): MergedBuildingOrModule {
+  MergedBuildingProps): MergedBuildingProps {
   return (
-    (modules?.filter(({ state }) => !state) || []) as MergedBuildingOrModule[]
+    (modules?.filter(({ state }) => !state) || []) as MergedBuildingProps[]
   ).reduce(
     (merge, module) => {
       if (module.residents) {
@@ -24,6 +24,6 @@ export function mergeBuildingAndModulesProps({
       }
       return merge;
     },
-    building.state ? {} : (building as MergedBuildingOrModule)
+    building.state ? {} : (building as MergedBuildingProps)
   );
 }

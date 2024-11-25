@@ -1,4 +1,5 @@
 import { Module } from "../../../types/buildings/Module";
+import { Index } from "../../../types/Index";
 import { BuildingCosts } from "./costs/BuildingCosts";
 import { BuildingProps } from "./props/BuildingProps";
 
@@ -7,7 +8,9 @@ export type BuildingData<T extends string, S = {}> = {
   name: string;
   description: string;
 } & CostsAndProps & {
-    developments?: BuildingDataDevelopment[];
+    developments?: {
+      [key: BuildingDataDevelopment["type"]]: BuildingDataDevelopment;
+    };
     evolutions?: string[];
     modules?: Module["type"][];
   } & S;

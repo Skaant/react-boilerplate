@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { SeedVessel } from "../../../../../types/buildings/list/SeedVessel";
-import { mergeBuildingAndModulesDataProps } from "../../_helpers/mergeBuildingAndModulesDataProps";
 
 export default function SeedVesselSelectionActions({
   building,
