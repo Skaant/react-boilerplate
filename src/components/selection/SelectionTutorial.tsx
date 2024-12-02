@@ -63,6 +63,25 @@ export default function SelectionTutorial() {
               <b>Réhydratez le vaisseau-graine.</b>
             </p>
           </>
+        ) : game.tutorial === 3 ? (
+          <>
+            <p>Ca y est, les tissus du vaisseau-graine se sont assouplis.</p>
+            <p>
+              Des processus organiques s'enclenchent, et même une production de
+              Jing s'en suit.
+            </p>
+            <p>
+              Mais, problème : le peu de Wa capté par la racine est toute entier
+              consommé dans le processus.
+            </p>
+            <p>Or</p>
+            <p>
+              <b>
+                Jouez deux tours pour améliorer les racines au moins jusqu'à 3 /
+                5.
+              </b>
+            </p>
+          </>
         ) : (
           <></>
         )

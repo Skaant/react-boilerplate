@@ -1,11 +1,9 @@
 import { GameContextData } from "../contexts/GameContext";
 import { State } from "../types/_helpers/State";
 
-export function landSeedVessel({
-  gameContext: [game, setGame],
-}: {
-  gameContext: State<GameContextData>;
-}) {
+export function landSeedVessel(
+  game: Exclude<GameContextData, undefined>
+): Exclude<GameContextData, undefined> {
   const cells = { ...game!.cells };
   cells["0,0"] = {
     ...cells["0,0"],
@@ -23,9 +21,9 @@ export function landSeedVessel({
       },
     },
   };
-  setGame({
+  return {
     ...game!,
     cells,
     buildings,
-  });
+  };
 }

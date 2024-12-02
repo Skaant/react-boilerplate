@@ -6,6 +6,6 @@ export type SeedVessel = GenericBuilding & {
 } & (
     | { step: 1 }
     | ({
-        step: 2;
+        step: 2 | 3;
       } & HasDevelopments<["roots"]>)
   );

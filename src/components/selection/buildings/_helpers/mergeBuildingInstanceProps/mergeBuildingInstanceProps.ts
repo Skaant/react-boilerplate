@@ -1,17 +1,23 @@
 import { Building } from "../../../../../types/buildings/Building";
-import { MergedBuildingProps } from "../../_types/MergedBuildingProps";
+import { BuildingInstanceProps } from "./_types/BuildingInstanceProps";
 
-export function mergeBuildingInstanceProps({
-  modules,
-  ...building
-}: Pick<Building, "state" | "modules"> &
-  MergedBuildingProps): MergedBuildingProps {
+export function mergeBuildingInstanceProps(
+  {
+    modules,
+    ...building
+  }: Pick<Building, "state" | "modules"> & BuildingInstanceProps,
+  state?: Building["state"]
+): BuildingInstanceProps {
   return (
-    (modules?.filter(({ state }) => !state) || []) as MergedBuildingProps[]
+    (modules?.filter(({ state: _state }) => _state === state) ||
+      []) as BuildingInstanceProps[]
   ).reduce(
     (merge, module) => {
       if (module.residents) {
         merge.residents = [...(merge.residents || []), ...module.residents];
+      }
+      if (module.zumGrowth) {
+        merge.zumGrowth = (merge.zumGrowth || 0) + module.zumGrowth;
       }
       if (module.wa) {
         merge.wa = (merge.wa || 0) + module.wa;
@@ -24,6 +30,6 @@ export function mergeBuildingInstanceProps({
       }
       return merge;
     },
-    building.state ? {} : (building as MergedBuildingProps)
+    building.state ? {} : (building as BuildingInstanceProps)
   );
 }

@@ -7,15 +7,16 @@ import BuildingSelectionModule from "./BuildingSelectionModule";
 import { UIContext } from "../../../contexts/ui/UIContext";
 import BuildingSelectionZum from "./BuildingSelectionZum";
 import { setSelection } from "../../../contexts/ui/helpers/setSelection";
-import BuildingSelectionProps from "./BuildingSelectionProps";
-import { mergeBuildingAndModulesProps } from "./_helpers/mergeBuildingAndModulesProps";
-import { mergeBuildingAndModulesDataProps } from "./_helpers/mergeBuildingAndModulesDataProps";
-import BuildingSelectionActions from "./actions/BuildingSelectionActions";
+import { mergeBuildingDataProps } from "./_helpers/mergeBuildingDataProps/mergeBuildingDataProps";
+import { mergeBuildingInstanceProps } from "./_helpers/mergeBuildingInstanceProps/mergeBuildingInstanceProps";
+import BuildingSelectionDevelopement from "./developments/BuildingSelectionDevelopement";
+import BuildingSelectionSummary from "./BuildingSelectionSummary";
 
-type Tab = "summary" | "residents" | "modules";
+type Tab = "summary" | "developments" | "modules" | "residents";
 
 const TABS_NAMES: { [key in Tab]: string } = {
   summary: "Résumé",
+  developments: "Développements",
   modules: "Modules",
   residents: "Résidents",
 };
@@ -30,38 +31,41 @@ export default function BuildingSelection({
   const [tab, setTab] = useState<Tab>("summary");
   const data = useMemo(
     () =>
-      building.step
+      (building.step
         ? BUILDINGS[`${building.type}-${building.step}`]
-        : BUILDINGS[building.type],
+        : BUILDINGS[
+            building.type
+          ]) as (typeof BUILDINGS)[keyof typeof BUILDINGS],
     [building.step, building.type]
   );
-  const buildingAndModulesDataProps = useMemo(
-    () => mergeBuildingAndModulesDataProps(building),
+  const buildingDataProps = useMemo(
+    () => mergeBuildingDataProps(building),
     [building]
   );
-  const buildingAndModulesProps = useMemo(
-    () => mergeBuildingAndModulesProps(building),
-    [building]
-  );
-  const actions = useMemo(
-    () => <BuildingSelectionActions building={building} />,
+  const buildingInstanceProps = useMemo(
+    () => mergeBuildingInstanceProps(building),
     [building]
   );
   const tabs = useMemo(() => {
     const tabs: Tab[] = [];
-    if (buildingAndModulesDataProps.length) tabs.push("summary");
-    tabs.push("modules");
-    if (buildingAndModulesDataProps.find(({ type }) => type === "zums-slots"))
+    if (buildingDataProps.length) tabs.push("summary");
+    if (data.developments) tabs.push("developments");
+    if (data.modules) tabs.push("modules");
+    if (buildingDataProps.find(({ type }) => type === "zums-slots"))
       tabs.push("residents");
     return tabs;
-  }, [buildingAndModulesDataProps, buildingAndModulesProps]);
+  }, [buildingDataProps, buildingInstanceProps]);
+  const developmentDisabledNext = useMemo(
+    () => game && game?.tutorial < 4,
+    [game?.tutorial]
+  );
   const residents = useMemo(
     () =>
       game &&
-      buildingAndModulesProps.residents?.map(
+      buildingInstanceProps.residents?.map(
         (residentId) => game.zums[residentId]
       ),
-    [buildingAndModulesProps.residents, game?.zums]
+    [buildingInstanceProps.residents, game?.zums]
   );
   const selectZum = useCallback(
     (zumId: Zum["id"]) =>
@@ -97,19 +101,23 @@ export default function BuildingSelection({
         ))}
       </div>
       {tab === "summary" && (
-        <>
-          {actions && (
-            <>
-              <h3>Actions</h3>
-              {actions}
-            </>
-          )}
-          <h3>Propriétés</h3>
-          <BuildingSelectionProps
-            props={buildingAndModulesDataProps}
-            object={buildingAndModulesProps}
-          />
-        </>
+        <BuildingSelectionSummary
+          building={building}
+          mergedBuildingDataProps={buildingDataProps}
+          mergedBuildingInstanceProps={buildingInstanceProps}
+        />
+      )}
+      {tab === "developments" && data.developments && (
+        <div className="d-flex column gap-1">
+          {Object.values(data.developments).map((_data) => (
+            <BuildingSelectionDevelopement
+              key={_data.type}
+              building={building}
+              development={building.developments?.[_data.type]}
+              data={_data}
+            />
+          ))}
+        </div>
       )}
       {tab === "modules" && building.modules && (
         <div className="d-flex column gap-1">

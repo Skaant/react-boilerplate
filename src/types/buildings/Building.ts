@@ -1,4 +1,4 @@
-import { BuildingDataDevelopment } from "../../data/buildings/_types/BuildingData";
+import { BuildingDataDevelopment } from "../../data/buildings/developments/types/BuildingDataDevelopment";
 import { Cell } from "../grid/Cell";
 import { Id } from "../Id";
 import { Dom } from "./list/Dom";

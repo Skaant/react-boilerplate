@@ -9,11 +9,14 @@
 :root {
   --light: #f4f4f4;
   --light-darker: #ccc;
+  --light-darkest: #a5a5a5;
+  --dark: #222;
   --dark-lighter: #333;
   --dark-lightest: #565656;
   --space: #271b3d;
   --seed: #a40;
   --zum: #fd6d2a;
+  --temp: #003b5b;
 }
 /** Titles */
 .text-funnel {
@@ -50,6 +53,9 @@
 .mb-2 {
   margin-bottom: 1rem;
 }
+.ml-1 {
+  margin-left: 0.5rem;
+}
 .p-1 {
   padding: 0.5rem;
 }
@@ -74,6 +80,12 @@
 .bg-light-darker {
   background-color: var(--light-darker);
 }
+.bg-light-darkest {
+  background-color: var(--light-darkest);
+}
+.bg-dark {
+  background-color: var(--dark);
+}
 .bg-dark-lighter {
   background-color: var(--dark-lighter);
 }
@@ -94,6 +106,9 @@
 }
 .text-dark-lighter {
   color: var(--dark-lighter);
+}
+.text-dark-lightest {
+  color: var(--dark-lightest);
 }
 .overflow-auto {
   overflow: auto;
@@ -133,6 +148,9 @@
   border-radius: 2rem;
   font-size: 1rem;
   border: none;
+}
+.pointer {
+  cursor: pointer;
 }
 body {
   font-family: "Noto", sans-serif;
@@ -176,4 +194,19 @@ h1 {
 }
 #selection h2 {
   margin: 0 0 4px;
+}
+.collapsible > .header > :first-child {
+  margin: 0;
+}
+.progress-bar > .bar,
+.progress-bar > .bar > div,
+.progress-bar > .items,
+.progress-bar > .items > div {
+  height: 8px;
+}
+.progress-bar > .items > div {
+  flex-grow: 1;
+}
+.progress-bar > .label {
+  margin-bottom: 8px;
 }

@@ -5,6 +5,7 @@ import KolosSeedSvg from "../svg/KolosSeedSvg";
 import { GridElement } from "../../types/grid/GridElement";
 import KolosSeedTransitSvg from "../svg/KolosSeedTransitSvg";
 import { GameContext } from "../../contexts/GameContext";
+import KolosSeedLandedSvg from "../svg/KolosSeedLanded";
 
 export default function BuildingSwitch(
   props: {
@@ -27,7 +28,7 @@ export default function BuildingSwitch(
         }}
       />
     ) : (
-      <KolosSeedSvg {...props} />
+      <KolosSeedLandedSvg {...props} step={props.step} />
     )
   ) : (
     <></>

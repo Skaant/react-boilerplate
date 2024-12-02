@@ -29,7 +29,6 @@ export default function App() {
             <Grid />
             <Selection />
           </div>
-          {gameState[0]?.tutorial} ''
           <div className="d-flex justify-center mt-2">
             <Turn />
           </div>

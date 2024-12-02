@@ -5,6 +5,8 @@ import { HasJing } from "./attributes/HasJing";
 import { HasResidents } from "./attributes/HasResidents";
 import { HasWa } from "./attributes/HasWa";
 
+export type BuildingModule = Module;
+/** @deprecated Rename to BuildingModule */
 export type Module = Id & {
   state?: "dry";
   buildingId: Building["id"];

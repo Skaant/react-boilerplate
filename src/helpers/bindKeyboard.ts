@@ -3,6 +3,7 @@ import { State } from "../types/_helpers/State";
 import { UIContextData } from "../contexts/ui/UIContext";
 import { moveZum } from "../use-cases/moveZum";
 import { setPreviousSelection } from "../contexts/ui/helpers/setPreviousSelection";
+import { passTurn } from "../use-cases/passTurn/passTurn";
 
 let keyupListener: undefined | ((ev: KeyboardEvent) => void) = undefined;
 
@@ -17,6 +18,9 @@ export function bindKeyboard({
   keyupListener = (ev: KeyboardEvent) => {
     if (ev.key === "Escape") {
       setPreviousSelection(UIState);
+    }
+    if (ev.key === "n" && gameState[0]?.tutorial !== 0) {
+      passTurn({ gameState });
     } else if (UIState[0]?.selection?.type === "zum") {
       const zumId = UIState[0].selection.id;
       if (ev.key === "z" || ev.key === "ArrowUp") {

@@ -1,18 +1,19 @@
 import { BuildingData } from "../_types/BuildingData";
-import { SEED_VESSEL_ROOTS } from "./seed-vessel/developments/seed-vessel-roots.data";
+import { SEED_VESSEL_ROOTS } from "../developments/list/seed-vessel-roots.data";
+import { SHARED_SEED_VESSEL_DATA } from "./seed-vessel-1.data";
+
+export const SHARED_SEED_VESSEL_DATA_2: Pick<
+  BuildingData<"seed-vessel">,
+  "props" | "developments" | "modules"
+> = {
+  ...SHARED_SEED_VESSEL_DATA,
+  developments: { [SEED_VESSEL_ROOTS.type]: SEED_VESSEL_ROOTS },
+};
 
 export const SEED_VESSEL_2: BuildingData<"seed-vessel-2"> = {
+  ...SHARED_SEED_VESSEL_DATA_2,
   type: "seed-vessel-2",
-  name: "Vaisseau-graine aterri",
+  name: "Vaisseau-graine atterri",
   description:
-    "Atteri, on ne sait encore où. Le vaisseau-graine et les Zums commencent à se réveiller doucement. Ils ont trés soif.",
-  props: [{ type: "zums-prod", value: 0.1 }],
-  developments: { [SEED_VESSEL_ROOTS.type]: SEED_VESSEL_ROOTS },
-  evolutions: [
-    "Relais Hol-Zong",
-    "Manufacture",
-    "Vault de toutes les traïbs",
-    "Grand arbre",
-  ],
-  modules: ["rooms", "wa-tank", "inside-garden", "hol-zong-shi-vault"],
+    "Atterri, on ne sait encore où. Là, le vaisseau-graine est entré en contact avec lae Wa. Aussitôt une toute petite racine en est sortie et a percé le sol, à la recherche d'encore plus de Wa.",
 };
